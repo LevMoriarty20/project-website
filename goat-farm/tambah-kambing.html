@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Kambing | Kambing Kamil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="form-page">
+    <div class="page-shell form-shell">
+      <aside class="sidebar inventory-sidebar">
+        <div class="sidebar-header">
+          <div class="brand admin-brand">
+            <span class="brand-mark">K</span>
+            <span>Kambing Kamil</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Navigasi form kambing">
+          <a href="admin.html">Dashboard</a>
+          <a href="kasir.html">Kasir</a>
+          <a href="stok-pakan.html">Stok Pakan</a>
+          <a href="laporan.html">Laporan</a>
+        </nav>
+      </aside>
+
+      <main class="admin-main form-main">
+        <header class="admin-topbar">
+          <div>
+            <span class="eyebrow">Master data</span>
+            <h1>Tambah kambing baru</h1>
+          </div>
+          <a href="admin.html" class="btn btn-secondary">Kembali</a>
+        </header>
+
+        <section class="panel form-panel reveal">
+          <form id="goatForm" class="goat-form">
+            <div class="form-grid">
+              <label>
+                Kode kambing
+                <input type="text" name="kode" placeholder="Contoh: K-301" required />
+              </label>
+
+              <label>
+                Nama kambing
+                <input type="text" name="nama" placeholder="Contoh: Kambing Super A" required />
+              </label>
+
+              <label>
+                Jenis
+                <select name="jenis" required>
+                  <option value="">-- Pilih jenis --</option>
+                  <option value="Super A">Super A</option>
+                  <option value="Betina B">Betina B</option>
+                  <option value="Standar C">Standar C</option>
+                  <option value="Premium">Premium</option>
+                </select>
+              </label>
+
+              <label>
+                Berat (kg)
+                <input type="number" name="berat" min="1" step="0.1" placeholder="38" required />
+              </label>
+
+              <label>
+                Usia (bulan)
+                <input type="number" name="usia" min="1" step="1" placeholder="10" required />
+              </label>
+
+              <label>
+                Jenis kelamin
+                <select name="kelamin" required>
+                  <option value="">-- Pilih --</option>
+                  <option value="Jantan">Jantan</option>
+                  <option value="Betina">Betina</option>
+                </select>
+              </label>
+
+              <label>
+                Harga jual
+                <input type="number" name="harga" min="1" step="1000" placeholder="8900000" required />
+              </label>
+
+              <label>
+                Status
+                <select name="status" required>
+                  <option value="">-- Pilih status --</option>
+                  <option value="Tersedia">Tersedia</option>
+                  <option value="Booked">Booked</option>
+                  <option value="Terjual">Terjual</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              Catatan kesehatan
+              <textarea name="catatan" rows="4" placeholder="Sebutkan kondisi kesehatan, vaksin, dan catatan khusus..."></textarea>
+            </label>
+
+            <div class="submit-row">
+              <button type="submit" class="btn btn-primary">Simpan data</button>
+              <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kasir | Kambing Kamil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="cashier-page">
+    <div class="cashier-shell">
+      <aside class="cashier-sidebar">
+        <div class="brand cashier-brand">
+          <span class="brand-mark">K</span>
+          <span>Kambing Kamil</span>
+        </div>
+
+        <div class="cashier-user">
+          <span class="avatar">K</span>
+          <div>
+            <strong>Kasir</strong>
+            <small>Shift pagi</small>
+          </div>
+        </div>
+
+        <nav class="cashier-nav">
+          <a class="active" href="#">Penjualan</a>
+          <a href="admin.html">Dashboard</a>
+          <a href="index.html">Landing</a>
+        </nav>
+      </aside>
+
+      <main class="cashier-main">
+        <header class="cashier-header">
+          <div>
+            <span class="eyebrow">POS / Kasir</span>
+            <h1>Transaksi penjualan</h1>
+          </div>
+          <div class="cashier-actions">
+            <button class="btn btn-secondary" type="button" id="clearCart">Batal</button>
+            <button class="btn btn-primary" type="button" id="printReceipt">Cetak struk</button>
+          </div>
+        </header>
+
+        <section class="cashier-grid">
+          <div class="cashier-panel product-panel reveal">
+            <div class="panel-head">
+              <h2>Daftar kambing</h2>
+              <input type="search" placeholder="Cari kambing..." aria-label="Cari kambing" class="search-box" id="cashierSearch" />
+            </div>
+
+            <div class="product-list" id="cashierProductList">
+            </div>
+            <p class="empty-state" id="cashierEmptyState" hidden>Tidak ada kambing tersedia yang cocok.</p>
+          </div>
+
+          <aside class="cashier-panel cart-panel reveal">
+            <div class="panel-head">
+              <h2>Keranjang</h2>
+              <span class="cart-count">0 item</span>
+            </div>
+
+            <div id="cartItems" class="cart-items">
+              <p class="empty-cart">Belum ada item dipilih.</p>
+            </div>
+
+            <div class="summary-box">
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <strong id="subtotal">Rp 0</strong>
+              </div>
+              <div class="summary-row">
+                <span>PPN (0%)</span>
+                <strong id="tax">Rp 0</strong>
+              </div>
+              <div class="summary-row total-row">
+                <span>Total</span>
+                <strong id="total">Rp 0</strong>
+              </div>
+            </div>
+
+            <div class="payment-panel">
+              <label>
+                Metode bayar
+                <select id="paymentMethod">
+                  <option value="Tunai">Tunai</option>
+                  <option value="Transfer">Transfer</option>
+                  <option value="QRIS">QRIS</option>
+                </select>
+              </label>
+
+              <label>
+                Uang diterima
+                <input id="cashInput" type="number" min="0" step="1000" placeholder="Masukkan nominal" />
+              </label>
+
+              <div class="summary-row change-row"><span>Kembalian</span><strong id="cashChange">Rp 0</strong></div>
+              <button id="payButton" class="btn btn-primary full">Proses pembayaran</button>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      const cart = [];
+      const cartItemsContainer = document.getElementById('cartItems');
+      const productList = document.getElementById('cashierProductList');
+      const subtotalEl = document.getElementById('subtotal');
+      const taxEl = document.getElementById('tax');
+      const totalEl = document.getElementById('total');
+      const changeEl = document.getElementById('cashChange');
+      const paymentMethod = document.getElementById('paymentMethod');
+      const cashInput = document.getElementById('cashInput');
+      const cashLabel = cashInput.closest('label');
+      const payButton = document.getElementById('payButton');
+      const cartCountEl = document.querySelector('.cart-count');
+      const searchInput = document.getElementById('cashierSearch');
+      const emptyState = document.getElementById('cashierEmptyState');
+      const goatImages = [
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Goat_of_Margarita.jpg/960px-Goat_of_Margarita.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg'
+      ];
+
+      const formatCashCurrency = (value) => new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0
+      }).format(value);
+
+      const taxRate = 0;
+      const availableGoats = window.KambingApp.readGoats().filter((goat) => goat.status === 'Tersedia');
+
+      const renderProducts = () => {
+        const query = searchInput.value.trim().toLowerCase();
+        const filtered = availableGoats.filter((goat) => `${goat.code} ${goat.name} ${goat.type}`.toLowerCase().includes(query));
+        productList.replaceChildren();
+        filtered.forEach((goat, index) => {
+          const article = document.createElement('article');
+          article.className = 'cashier-product';
+          article.dataset.name = goat.name;
+          article.dataset.price = String(goat.price);
+          const image = document.createElement('img');
+          image.src = goat.image || goatImages[index % goatImages.length];
+          image.alt = goat.name;
+          const details = document.createElement('div');
+          const title = document.createElement('h3');
+          title.textContent = goat.name;
+          const description = document.createElement('p');
+          description.textContent = `${goat.code} • ${goat.weight} kg`;
+          const price = document.createElement('strong');
+          price.textContent = formatCashCurrency(Number(goat.price));
+          details.append(title, description, price);
+          const addButton = document.createElement('button');
+          addButton.className = 'btn btn-primary small add-item';
+          addButton.type = 'button';
+          addButton.textContent = 'Tambah';
+          addButton.addEventListener('click', () => {
+            if (cart.some((item) => item.name === goat.name)) {
+              window.KambingApp.showToast(`${goat.name} sudah ada di keranjang.`);
+              return;
+            }
+            cart.push({ name: goat.name, price: Number(goat.price), qty: 1 });
+            renderCart();
+          });
+          article.append(image, details, addButton);
+          productList.append(article);
+        });
+        emptyState.hidden = filtered.length > 0;
+      };
+
+      const renderCart = () => {
+        cartItemsContainer.replaceChildren();
+        if (!cart.length) {
+          const emptyMessage = document.createElement('p');
+          emptyMessage.className = 'empty-cart';
+          emptyMessage.textContent = 'Belum ada item dipilih.';
+          cartItemsContainer.append(emptyMessage);
+        } else {
+          cart.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'cart-item';
+            const details = document.createElement('div');
+            const name = document.createElement('strong');
+            name.textContent = item.name;
+            const price = document.createElement('small');
+            price.textContent = `${formatCashCurrency(item.price)} / ekor`;
+            details.append(name, price);
+            const actions = document.createElement('div');
+            actions.className = 'cart-item-actions';
+            const remove = document.createElement('button');
+            remove.className = 'qty-btn';
+            remove.type = 'button';
+            remove.dataset.index = String(index);
+            remove.setAttribute('aria-label', `Hapus ${item.name} dari keranjang`);
+            remove.textContent = '×';
+            const quantity = document.createElement('span');
+            quantity.textContent = '1';
+            actions.append(remove, quantity);
+            row.append(details, actions);
+            cartItemsContainer.append(row);
+          });
+        }
+
+        const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+        const tax = Math.round(subtotal * taxRate);
+        const total = subtotal + tax;
+        const cash = Number(cashInput.value || 0);
+        subtotalEl.textContent = formatCashCurrency(subtotal);
+        taxEl.textContent = formatCashCurrency(tax);
+        totalEl.textContent = formatCashCurrency(total);
+        changeEl.textContent = formatCashCurrency(Math.max(0, cash - total));
+        cartCountEl.textContent = `${cart.length} ekor`;
+        payButton.disabled = !cart.length;
+      };
+
+      searchInput.addEventListener('input', renderProducts);
+      cashInput.addEventListener('input', renderCart);
+      paymentMethod.addEventListener('change', () => {
+        const isCash = paymentMethod.value === 'Tunai';
+        cashLabel.hidden = !isCash;
+        cashInput.required = isCash;
+        if (!isCash) cashInput.value = '';
+        renderCart();
+      });
+
+      cartItemsContainer.addEventListener('click', (event) => {
+        const button = event.target.closest('.qty-btn');
+        if (!button) return;
+        cart.splice(Number(button.dataset.index), 1);
+        renderCart();
+      });
+
+      document.getElementById('clearCart').addEventListener('click', () => {
+        cart.length = 0;
+        cashInput.value = '';
+        renderCart();
+        window.KambingApp.showToast('Keranjang dikosongkan.');
+      });
+
+      document.getElementById('printReceipt').addEventListener('click', () => {
+        if (!cart.length) {
+          window.KambingApp.showToast('Tambahkan kambing sebelum mencetak struk.', 'error');
+          return;
+        }
+        window.print();
+      });
+
+      payButton.addEventListener('click', () => {
+        if (!cart.length) {
+          window.KambingApp.showToast('Keranjang masih kosong.', 'error');
+          return;
+        }
+        const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+        const tax = Math.round(subtotal * taxRate);
+        const total = subtotal + tax;
+        const cash = Number(cashInput.value || 0);
+        if (paymentMethod.value === 'Tunai' && cash < total) {
+          window.KambingApp.showToast(`Uang belum cukup. Total pembayaran ${formatCashCurrency(total)}.`, 'error');
+          cashInput.focus();
+          return;
+        }
+        try {
+          window.KambingApp.completeSale({
+            id: `TR-${Date.now()}`,
+            items: cart.map((item) => ({ ...item })),
+            subtotal,
+            tax,
+            total,
+            paymentMethod: paymentMethod.value,
+            cashReceived: paymentMethod.value === 'Tunai' ? cash : total,
+            change: paymentMethod.value === 'Tunai' ? cash - total : 0,
+            createdAt: new Date().toISOString()
+          });
+          cart.length = 0;
+          cashInput.value = '';
+          renderCart();
+          window.KambingApp.showToast(`Transaksi berhasil. Total ${formatCashCurrency(total)}.`);
+          setTimeout(() => window.location.reload(), 650);
+        } catch (error) {
+          window.KambingApp.showToast(error.message, 'error');
+          availableGoats.splice(0, availableGoats.length, ...window.KambingApp.readGoats().filter((goat) => goat.status === 'Tersedia'));
+          renderProducts();
+        }
+      });
+
+      paymentMethod.dispatchEvent(new Event('change'));
+      renderProducts();
+      renderCart();
+    </script>
+  </body>
+</html>

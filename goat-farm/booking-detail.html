@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Detail | Kambing Kamil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="booking-detail-page">
+    <div class="page-shell detail-booking-shell">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="brand admin-brand">
+            <span class="brand-mark">K</span>
+            <span>Kambing Kamil</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Navigasi booking">
+          <a href="admin.html">Dashboard</a>
+          <a href="kasir.html">Kasir</a>
+          <a href="stok-pakan.html">Stok Pakan</a>
+          <a href="laporan.html">Laporan</a>
+          <a class="active" href="#">Booking</a>
+        </nav>
+      </aside>
+
+      <main class="admin-main booking-detail-main">
+        <header class="admin-topbar">
+          <div>
+            <span class="eyebrow">Reservasi</span>
+            <h1>Detail booking</h1>
+          </div>
+          <button class="btn btn-primary" type="button" id="confirmBooking">Konfirmasi DP</button>
+        </header>
+
+        <section class="booking-layout" id="bookingDetail">
+          <div class="panel booking-panel reveal">
+            <div class="booking-header-row">
+              <div>
+                <span class="eyebrow soft">ID Booking</span>
+                <h2 id="bookingId">BK-2026-018</h2>
+              </div>
+              <span class="status-badge booked" id="bookingStatus">DP 30%</span>
+            </div>
+
+            <div class="booking-info-grid">
+              <div>
+                <label>Nama pelanggan</label>
+                <strong id="bookingName">Ahmad Rizki</strong>
+              </div>
+              <div>
+                <label>Kontak</label>
+                <strong id="bookingPhone">0812-3456-7890</strong>
+              </div>
+              <div>
+                <label>Kambing</label>
+                <strong id="bookingGoat">Kambing Super A</strong>
+              </div>
+              <div>
+                <label>Tanggal booking</label>
+                <strong id="bookingDate">02 Oktober 2026</strong>
+              </div>
+              <div>
+                <label>Jadwal kurban</label>
+                <strong id="deliveryDate">12 Oktober 2026</strong>
+              </div>
+              <div>
+                <label>DP dibayar</label>
+                <strong id="bookingPaidDP">Rp 2.670.000</strong>
+              </div>
+            </div>
+          </div>
+
+          <aside class="panel summary-panel reveal">
+            <div class="panel-head">
+              <h2>Ringkasan</h2>
+            </div>
+
+            <div class="summary-stack">
+              <div class="summary-item">
+                <span>Total harga</span>
+                <strong id="bookingTotal">Rp 8.900.000</strong>
+              </div>
+              <div class="summary-item">
+                <span>DP dibayar</span>
+                <strong id="bookingDP">Rp 2.670.000</strong>
+              </div>
+              <div class="summary-item">
+                <span>Sisa pelunasan</span>
+                <strong id="bookingBalance">Rp 6.230.000</strong>
+              </div>
+            </div>
+
+            <div class="timeline-box">
+              <h3>Status pembayaran</h3>
+              <ul>
+                <li class="done" id="timelineCreated">Booking dibuat</li>
+                <li id="timelineDP">DP diterima</li>
+                <li class="active" id="timelineBalance">Menunggu pelunasan</li>
+              </ul>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Kambing | Kambing Kamil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="detail-page">
+    <header class="site-header">
+      <div class="container nav">
+        <div class="brand">
+          <span class="brand-mark">K</span>
+          <span>Kambing Kamil</span>
+        </div>
+        <nav class="nav-menu" aria-label="Main menu">
+          <a href="index.html">Home</a>
+          <a href="index.html#katalog">Katalog</a>
+          <a href="index.html#booking">Booking</a>
+          <a href="admin.html">Admin</a>
+          <a href="login.html">Login</a>
+        </nav>
+        <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+        <a href="index.html#booking" class="btn btn-primary nav-cta">Booking sekarang</a>
+      </div>
+    </header>
+
+    <main class="detail-main">
+      <section class="container detail-grid">
+        <div class="detail-visual reveal">
+          <img id="detailImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg" alt="Kambing" />
+        </div>
+
+        <div class="detail-copy reveal">
+          <span class="eyebrow" id="detailBadge">Premium</span>
+          <h1 id="detailTitle">Kambing Super A</h1>
+          <p class="detail-price" id="detailPrice">Rp 8.900.000</p>
+          <p class="detail-description" id="detailDescription">
+            Kambing dengan bobot ideal, kondisi kesehatan prima, dan kualitas daging lembut yang sesuai untuk kebutuhan kurban atau aqiqah.
+          </p>
+
+          <ul class="detail-specs">
+            <li><strong>Bobot:</strong> <span id="specWeight">38 kg</span></li>
+            <li><strong>Usia:</strong> <span id="specAge">10 bulan</span></li>
+            <li><strong>Jenis kelamin:</strong> <span id="specGender">Jantan</span></li>
+            <li><strong>Status:</strong> <span id="specStatus">Siap jual</span></li>
+          </ul>
+
+          <div class="detail-actions">
+            <a href="index.html#booking" class="btn btn-primary">Booking sekarang</a>
+            <a href="index.html#katalog" class="btn btn-secondary">Lihat katalog</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="container detail-extra">
+        <div class="panel detail-panel reveal">
+          <h2>Spesifikasi lengkap</h2>
+          <div class="spec-grid">
+            <div>
+              <span>Bobot</span>
+              <strong id="specWeight2">38 kg</strong>
+            </div>
+            <div>
+              <span>Tinggi</span>
+              <strong>72 cm</strong>
+            </div>
+            <div>
+              <span>Proses nutrisi</span>
+              <strong>Baik</strong>
+            </div>
+            <div>
+              <span>Riwayat vaksin</span>
+              <strong>Lengkap</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel detail-panel reveal">
+          <h2>Catatan kesehatan</h2>
+          <p>
+            Kambing dalam kondisi sehat, aktif, dan telah melalui pengecekan rutin sebelum dipasarkan. Riwayat pemberian pakan dan vitamin terkelola dengan baik.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div>
+          <div class="brand footer-brand">
+            <span class="brand-mark">K</span>
+            <span>Kambing Kamil</span>
+          </div>
+          <p>Peternakan digital untuk bisnis kambing dan kurban yang lebih rapi, cepat, dan terukur.</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html#cara-pesan">Cara pesan</a>
+          <a href="index.html#katalog">Katalog</a>
+          <a href="index.html#booking">Booking</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      const productMap = {
+        'Kambing Super A': {
+          badge: 'Premium',
+          price: 'Rp 8.900.000',
+          description: 'Kambing dengan bobot ideal, kondisi kesehatan prima, dan kualitas daging lembut yang sesuai untuk kebutuhan kurban atau aqiqah.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg',
+          weight: '38 kg',
+          age: '10 bulan',
+          gender: 'Jantan',
+          status: 'Siap jual'
+        },
+        'Kambing Betina B': {
+          badge: 'Betina',
+          price: 'Rp 7.400.000',
+          description: 'Kambing betina dengan kondisi tubuh proporsional, sehat, dan cocok untuk kebutuhan keluarga serta acara aqiqah.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Goat_of_Margarita.jpg/960px-Goat_of_Margarita.jpg',
+          weight: '31 kg',
+          age: '9 bulan',
+          gender: 'Betina',
+          status: 'Siap jual'
+        },
+        'Kambing Standar C': {
+          badge: 'Standar',
+          price: 'Rp 6.100.000',
+          description: 'Pilihan ekonomis dengan kualitas sehat dan ukuran ideal untuk kebutuhan kurban massal maupun keluarga.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg',
+          weight: '29 kg',
+          age: '8 bulan',
+          gender: 'Jantan',
+          status: 'Siap jual'
+        },
+        'Kambing Premium D': {
+          badge: 'Premium',
+          price: 'Rp 9.500.000',
+          description: 'Kambing premium berbobot 41 kg dengan kondisi prima dan siap untuk kebutuhan kurban.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Goat_of_Margarita.jpg/960px-Goat_of_Margarita.jpg',
+          weight: '41 kg',
+          age: '12 bulan',
+          gender: 'Jantan',
+          status: 'Siap jual'
+        },
+        'Kambing Ekonomis E': {
+          badge: 'Ekonomis',
+          price: 'Rp 7.900.000',
+          description: 'Kambing ekonomis berbobot 33 kg dengan harga bersahabat untuk pilihan kurban keluarga.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg',
+          weight: '33 kg',
+          age: '9 bulan',
+          gender: 'Jantan',
+          status: 'Siap jual'
+        }
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const goatName = params.get('goat') || 'Kambing Super A';
+      const item = productMap[goatName] || productMap['Kambing Super A'];
+
+      document.getElementById('detailBadge').textContent = item.badge;
+      document.getElementById('detailTitle').textContent = goatName;
+      document.getElementById('detailPrice').textContent = item.price;
+      document.getElementById('detailDescription').textContent = item.description;
+      document.getElementById('detailImage').src = item.image;
+      document.getElementById('detailImage').alt = goatName;
+      document.getElementById('specWeight').textContent = item.weight;
+      document.getElementById('specAge').textContent = item.age;
+      document.getElementById('specGender').textContent = item.gender;
+      document.getElementById('specStatus').textContent = item.status;
+      document.getElementById('specWeight2').textContent = item.weight;
+    </script>
+  </body>
+</html>

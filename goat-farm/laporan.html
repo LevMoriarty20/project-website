@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan Keuangan | Kambing Kamil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="report-page">
+    <div class="page-shell report-shell">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="brand admin-brand">
+            <span class="brand-mark">K</span>
+            <span>Kambing Kamil</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Navigasi laporan">
+          <a href="admin.html">Dashboard</a>
+          <a href="kasir.html">Kasir</a>
+          <a href="stok-pakan.html">Stok Pakan</a>
+          <a class="active" href="#">Laporan</a>
+        </nav>
+      </aside>
+
+      <main class="admin-main report-main">
+        <header class="admin-topbar">
+          <div>
+            <span class="eyebrow">Akuntansi</span>
+            <h1>Laporan keuangan</h1>
+            <p class="admin-subtitle">Ringkasan dari transaksi kasir yang tersimpan di browser ini.</p>
+          </div>
+          <button class="btn btn-primary" type="button" id="printReport">Cetak / simpan PDF</button>
+        </header>
+
+        <section class="report-stat-grid">
+          <article class="admin-stat success reveal">
+            <span>Penjualan tercatat</span>
+            <strong id="reportRevenue">Rp 0</strong>
+            <small id="reportTransactionCount">0 transaksi</small>
+          </article>
+          <article class="admin-stat warning reveal">
+            <span>Pajak transaksi</span>
+            <strong id="reportTax">Rp 0</strong>
+            <small>Total PPN dari transaksi tersimpan</small>
+          </article>
+          <article class="admin-stat accent reveal">
+            <span>Kas diterima</span>
+            <strong id="reportCashReceived">Rp 0</strong>
+            <small id="reportPaymentMethods">Belum ada transaksi</small>
+          </article>
+        </section>
+
+        <section class="content-grid report-content-grid">
+          <div class="panel report-panel reveal">
+            <div class="panel-head">
+              <h2>Ringkasan penjualan</h2>
+            </div>
+
+            <div class="money-list">
+              <div class="money-row"><span>Penjualan sebelum pajak</span><strong id="statementSubtotal">Rp 0</strong></div>
+              <div class="money-row"><span>Pajak transaksi</span><strong id="statementTax">Rp 0</strong></div>
+              <div class="money-row total-money"><span>Total nilai transaksi</span><strong id="statementTotal">Rp 0</strong></div>
+              <p class="form-note report-note">HPP, biaya operasional, dan laba bersih belum dihitung karena data biaya belum dicatat.</p>
+            </div>
+          </div>
+
+          <div class="panel report-panel reveal">
+            <div class="panel-head">
+              <h2>Arus kas</h2>
+            </div>
+
+            <div class="money-list">
+              <div class="money-row"><span>Tunai diterima</span><strong id="cashCash">Rp 0</strong></div>
+              <div class="money-row"><span>Transfer / QRIS</span><strong id="cashNonCash">Rp 0</strong></div>
+              <div class="money-row total-money"><span>Total kas masuk</span><strong id="cashTotal">Rp 0</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="bottom-grid report-bottom-grid">
+          <div class="panel chart-panel reveal">
+            <div class="panel-head">
+              <h2>Penjualan 7 hari terakhir</h2>
+            </div>
+            <div class="bars admin-bars" aria-label="Grafik laporan keuangan">
+              <span style="height: 35%"></span>
+              <span style="height: 48%"></span>
+              <span style="height: 55%"></span>
+              <span style="height: 68%"></span>
+              <span style="height: 80%"></span>
+              <span style="height: 90%"></span>
+              <span style="height: 95%"></span>
+            </div>
+            <p class="empty-state" id="reportChartEmpty" hidden>Grafik tampil setelah transaksi kasir dicatat.</p>
+            <div class="chart-labels" aria-hidden="true" id="reportChartLabels"></div>
+          </div>
+
+          <div class="panel reveal">
+            <div class="panel-head">
+              <h2>Aktivitas terbaru</h2>
+            </div>
+            <ul class="activity-list" id="reportActivityList">
+              <li><span>Belum ada transaksi</span><strong>Transaksi kasir akan tampil di sini.</strong></li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

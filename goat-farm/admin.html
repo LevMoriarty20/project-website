@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Kambing Kamil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin-page">
+    <div class="page-shell">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="brand admin-brand">
+            <span class="brand-mark">K</span>
+            <span>Kambing Kamil</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Navigasi admin">
+          <a class="active" href="#">Dashboard</a>
+          <a href="tambah-kambing.html">Kambing</a>
+          <a href="kasir.html">Kasir</a>
+          <a href="stok-pakan.html">Stok Pakan</a>
+          <a href="laporan.html">Laporan</a>
+          <a href="booking-detail.html">Booking</a>
+        </nav>
+
+        <div class="sidebar-card">
+          <p>Ringkasan booking</p>
+          <strong id="sidebarBookingCount">0 booking</strong>
+          <span id="sidebarPendingCount">0 menunggu konfirmasi</span>
+        </div>
+      </aside>
+
+      <main class="admin-main">
+        <header class="admin-topbar">
+          <div>
+            <span class="eyebrow">Admin panel</span>
+            <h1>Selamat datang kembali</h1>
+            <p class="admin-subtitle">Berikut ringkasan operasional peternakan Anda hari ini.</p>
+          </div>
+
+          <div class="topbar-actions">
+            <button class="btn btn-secondary" type="button" data-export-goats>Export data</button>
+            <div class="user-badge">
+              <span class="avatar">A</span>
+              <div>
+                <strong>Admin</strong>
+                <small>Owner</small>
+              </div>
+            </div>
+            <button class="btn btn-secondary small" type="button" data-logout>Keluar</button>
+          </div>
+        </header>
+
+        <section class="stat-grid">
+          <article class="admin-stat reveal">
+            <span>Total kambing</span>
+            <strong id="dashboardGoatCount">128</strong>
+            <small>Data inventaris aktif</small>
+          </article>
+          <article class="admin-stat accent reveal">
+            <span>Booked</span>
+            <strong id="dashboardBookedCount">16</strong>
+            <small id="dashboardPendingText">0 menunggu konfirmasi</small>
+          </article>
+          <article class="admin-stat success reveal">
+            <span>Pendapatan</span>
+            <strong id="dashboardRevenue">Rp 0</strong>
+            <small id="dashboardRevenueCaption">Belum ada transaksi tersimpan</small>
+          </article>
+          <article class="admin-stat warning reveal">
+            <span>Stok pakan</span>
+            <strong>92%</strong>
+            <small>3 item perlu restock</small>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel table-panel reveal">
+            <div class="panel-head">
+              <div>
+                <h2>Inventaris kambing</h2>
+                <p class="panel-subtitle">Pantau ketersediaan dan status ternak.</p>
+              </div>
+              <div class="panel-tools">
+                <input class="search-box" type="search" id="goatSearch" placeholder="Cari kode atau jenis..." aria-label="Cari kambing" />
+                <a class="btn btn-primary small" href="tambah-kambing.html">+ Tambah data</a>
+              </div>
+            </div>
+
+            <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kode</th>
+                  <th>Jenis</th>
+                  <th>Bobot</th>
+                  <th>Status</th>
+                  <th>Harga</th>
+                </tr>
+              </thead>
+              <tbody id="goatTableBody">
+                <tr>
+                  <td>K-204</td>
+                  <td>Super A</td>
+                  <td>38 kg</td>
+                  <td><span class="status-badge available">Tersedia</span></td>
+                  <td>Rp 8.9Jt</td>
+                </tr>
+                <tr>
+                  <td>K-188</td>
+                  <td>Betina B</td>
+                  <td>31 kg</td>
+                  <td><span class="status-badge booked">Booked</span></td>
+                  <td>Rp 7.4Jt</td>
+                </tr>
+                <tr>
+                  <td>K-171</td>
+                  <td>Standar C</td>
+                  <td>29 kg</td>
+                  <td><span class="status-badge sold">Terjual</span></td>
+                  <td>Rp 6.1Jt</td>
+                </tr>
+                <tr>
+                  <td>K-222</td>
+                  <td>Premium</td>
+                  <td>41 kg</td>
+                  <td><span class="status-badge available">Tersedia</span></td>
+                  <td>Rp 9.5Jt</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <p class="empty-state" id="goatEmptyState" hidden>Tidak ada kambing yang cocok dengan pencarian.</p>
+          </div>
+
+          <div class="panel side-panel reveal">
+            <div class="panel-head">
+              <div>
+                <h2>Booking terbaru</h2>
+                <p class="panel-subtitle">Pemesanan terbaru dari pelanggan.</p>
+              </div>
+            </div>
+
+            <ul class="booking-list" id="dashboardBookingList">
+              <li class="reveal">
+                <div>
+                  <strong>Ahmad R.</strong>
+                  <small>Kambing Super A</small>
+                </div>
+                <span class="status-badge booked">DP 30%</span>
+              </li>
+              <li class="reveal">
+                <div>
+                  <strong>Siti N.</strong>
+                  <small>Kambing Betina B</small>
+                </div>
+                <span class="status-badge pending">Menunggu</span>
+              </li>
+              <li class="reveal">
+                <div>
+                  <strong>Rahman</strong>
+                  <small>Kambing Standar C</small>
+                </div>
+                <span class="status-badge sold">Lunas</span>
+              </li>
+            </ul>
+            <p class="empty-state" id="bookingEmptyState" hidden>Belum ada booking tersimpan.</p>
+          </div>
+        </section>
+
+        <section class="bottom-grid">
+          <div class="panel chart-panel reveal">
+            <div class="panel-head">
+              <h2>Tren penjualan</h2>
+              <span class="chart-caption" id="salesChartCaption">7 hari terakhir</span>
+            </div>
+            <div class="bars admin-bars" aria-label="Grafik penjualan admin">
+              <span style="height: 30%"></span>
+              <span style="height: 42%"></span>
+              <span style="height: 52%"></span>
+              <span style="height: 64%"></span>
+              <span style="height: 78%"></span>
+              <span style="height: 86%"></span>
+              <span style="height: 93%"></span>
+            </div>
+            <p class="empty-state" id="salesChartEmpty" hidden>Grafik akan tampil setelah ada transaksi kasir.</p>
+            <div class="chart-labels" aria-hidden="true" id="salesChartLabels"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+          </div>
+
+          <div class="panel quick-actions reveal">
+            <div class="panel-head">
+              <h2>Aktivitas cepat</h2>
+            </div>
+
+            <div class="action-stack">
+              <a class="action-btn" href="tambah-kambing.html"><span>＋</span> Tambah kambing</a>
+              <a class="action-btn" href="stok-pakan.html"><span>＋</span> Kelola stok pakan</a>
+              <a class="action-btn" href="booking-detail.html"><span>→</span> Buka detail booking</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

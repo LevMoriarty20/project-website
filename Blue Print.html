@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueprint Aplikasi Peternakan Kambing</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #27ae60; padding-bottom: 10px; }
+        h2 { color: #27ae60; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        h3 { color: #2980b9; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; background: #fff; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #27ae60; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        code { background: #eee; padding: 2px 5px; border-radius: 4px; font-family: monospace; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .box { background: #fff; padding: 20px; border-left: 5px solid #27ae60; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        ul { padding-left: 20px; }
+        .footer { text-align: center; margin-top: 50px; font-size: 0.9em; color: #777; }
+    </style>
+</head>
+<body>
+
+    <h1>BLUEPRINT APLIKASI WEB PETERNAKAN & KURBAN</h1>
+    <p><strong>Versi:</strong> 1.0 (Enterprise Edition)<br>
+    <strong>Disusun oleh:</strong> Enterprise Architect (15+ Tahun Pengalaman)<br>
+    <strong>Tujuan:</strong> Digitalisasi ekosistem peternakan kambing, mulai dari katalog, POS, booking DP, inventory, hingga laporan akuntansi standar.</p>
+
+    <div class="box">
+        <h2>1. RINGKASAN EKSEKUTIF</h2>
+        <p>Aplikasi ini dirancang sebagai <strong>Progressive Web App (PWA)</strong> yang dapat diakses melalui browser HP tanpa perlu diinstal dari App Store/Play Store. Sistem ini mengintegrasikan sisi <em>Customer Facing</em> (Katalog & Booking) dengan <em>Back Office</em> (POS, Inventory, Accounting). Arsitektur menggunakan pendekatan <strong>Modular Monolith</strong> untuk memudahkan pemeliharaan dan skalabilitas di masa depan.</p>
+    </div>
+
+    <h2>2. TECHNOLOGY STACK (REKOMENDASI ENTERPRISE)</h2>
+    <table>
+        <thead>
+            <tr><th>Layer</th><th>Teknologi</th><th>Alasan</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Frontend (PWA)</td><td>React.js + Vite, Tailwind CSS, Workbox</td><td>Cepat, responsif, mendukung offline caching untuk katalog.</td></tr>
+            <tr><td>Backend</td><td>Node.js + NestJS (TypeScript)</td><td>Framework enterprise, modular, mendukung Dependency Injection.</td></tr>
+            <tr><td>Database</td><td>PostgreSQL</td><td>ACID Compliance, sangat baik untuk transaksi keuangan & stok.</td></tr>
+            <tr><td>ORM</td><td>Prisma</td><td>Memudahkan relasi antar tabel dan migrasi database.</td></tr>
+            <tr><td>Caching & Queue</td><td>Redis</td><td>Session management, caching katalog, antrian cetak struk.</td></tr>
+            <tr><td>Payment Gateway</td><td>Midtrans / Xendit</td><td>Integrasi DP, pelunasan, dan QRIS.</td></tr>
+            <tr><td>Barcode Scanning</td><td><code>html5-qrcode</code> (Frontend)</td><td>Scan barcode via kamera HP tanpa aplikasi tambahan.</td></tr>
+            <tr><td>Storage</td><td>AWS S3 / Cloudinary</td><td>Penyimpanan foto/video kambing, galeri pengiriman.</td></tr>
+            <tr><td>Infrastruktur</td><td>Docker, Nginx, VPS</td><td>Containerization, Reverse Proxy, dan hosting yang stabil.</td></tr>
+        </tbody>
+    </table>
+
+    <h2>3. STRUKTUR MODUL & FITUR</h2>
+    
+    <h3>Modul 1: Katalog & Pemesanan dengan Scan Barcode (Customer PWA)</h3>
+    <p><em>Sesuai Gambar 1 & 2: Katalog Produk, Filter, Detail Spesifikasi, Lokasi, dan Testimoni.</em></p>
+    <ul>
+        <li><strong>Scan Barcode:</strong> Pelanggan scan QR Code di kandang/brosur -> Halaman detail kambing (Foto asli, bobot, tinggi, usia, jenis kelamin, status kesehatan).</li>
+        <li><strong>Kategori & Filter:</strong> Kelas Standar, Premium, Super, Betina, Paket Aqiqah.</li>
+        <li><strong>Direct Checkout (WhatsApp):</strong> Tombol "Tanya via WA" yang otomatis membawa deep link ke WhatsApp admin dengan format pesan berisi ID Kambing.</li>
+        <li><strong>Google Maps & Profil:</strong> Halaman "Tentang Kami" dengan peta interaktif dan cerita kebersihan kandang.</li>
+        <li><strong>Testimoni:</strong> Galeri foto/video penyerahan hewan kurban ke pelanggan sebelumnya.</li>
+    </ul>
+
+    <h3>Modul 2: Aplikasi Kasir / Point of Sale (POS)</h3>
+    <ul>
+        <li><strong>Antarmuka Kasir:</strong> Tampilan grid produk, keranjang belanja, dan fitur pencarian cepat.</li>
+        <li><strong>Scan Barcode (Internal):</strong> Kasir dapat menscan barcode kambing untuk langsung memasukkan item ke keranjang (validasi real-time stok).</li>
+        <li><strong>Multiple Payment:</strong> Tunai, Transfer Bank, QRIS, dan E-Wallet.</li>
+        <li><strong>Cetak Struk:</strong> Integrasi dengan printer thermal Bluetooth (via Web Bluetooth API).</li>
+        <li><strong>Shift Management:</strong> Buka/tutup kasir, rekap uang fisik di laci kasir.</li>
+    </ul>
+
+    <h3>Modul 3: Reservasi & Booking dengan Pembayaran DP (Admin Configurable)</h3>
+    <p><em>Sesuai Gambar 4: Sistem Booking / DP.</em></p>
+    <ul>
+        <li><strong>Form Booking:</strong> Pelanggan memilih tanggal pengiriman/penyembelihan (untuk musim kurban).</li>
+        <li><strong>DP Configurable:</strong> Admin dapat mengatur persentase DP (misal 20% atau 50%) melalui dashboard.</li>
+        <li><strong>Status "Terjual/Booked":</strong> Setelah DP dibayar, status kambing otomatis berubah menjadi "Booked" dan tidak bisa dipesan orang lain.</li>
+        <li><strong>Reminder:</strong> Notifikasi otomatis (WhatsApp/Email) H-7 dan H-1 sebelum hari H untuk pelunasan.</li>
+    </ul>
+
+    <h3>Modul 4: Manajemen Stok & Bahan Baku (Inventory)</h3>
+    <ul>
+        <li><strong>Manajemen Kambing:</strong> Status stok (Tersedia, Booked, Terjual, Mati/Sakit). Update otomatis dari POS dan Booking.</li>
+        <li><strong>Manajemen Pakan & Obat:</strong> Stok bahan baku (rumput, konsentrat, vitamin).</li>
+        <li><strong>Bill of Materials (BOM):</strong> Menghitung HPP (Harga Pokok Penjualan) per kambing berdasarkan pakan yang dikonsumsi selama masa pemeliharaan.</li>
+        <li><strong>Alert System:</strong> Notifikasi jika stok pakan menipis atau ada kambing yang butuh vaksin.</li>
+    </ul>
+
+    <h3>Modul 5: Laporan Keuangan (Standar Akuntansi)</h3>
+    <ul>
+        <li><strong>Jurnal Umum & Buku Besar:</strong> Otomatisasi pencatatan dari setiap transaksi POS, Pembelian Pakan, dan DP.</li>
+        <li><strong>Laporan Laba Rugi (Income Statement):</strong> Pendapatan (Penjualan Kambing + Aqiqah) - HPP (Pakan, Tenaga Kerja, Obat) - Beban Operasional.</li>
+        <li><strong>Neraca (Balance Sheet):</strong> Aset (Kas, Piutang DP, Stok Kambing), Kewajiban, dan Ekuitas.</li>
+        <li><strong>Arus Kas (Cash Flow):</strong> Laporan uang masuk dan keluar.</li>
+        <li><strong>Export:</strong> Export ke Excel/PDF untuk audit.</li>
+    </ul>
+
+    <h2>4. ARSITEKTUR SISTEM (HIGH LEVEL)</h2>
+    <pre>
+[ PWA Mobile (React) ] <---> [ API Gateway (Nginx) ]
+       |                              |
+       |                              |
+[ Scan Barcode ]              [ NestJS Backend (Modular) ]
+       |                              |
+       |          +-------------------+-------------------+
+       |          |                   |                   |
+       |    [ Modul Katalog ]   [ Modul POS ]      [ Modul Booking ]
+       |          |                   |                   |
+       |          +-------------------+-------------------+
+       |                              |
+       |                      [ Modul Inventory ]
+       |                              |
+       |                      [ Modul Akuntansi ]
+       |                              |
+       +-------------------> [ PostgreSQL DB ] <--- [ Redis Cache ]
+    </pre>
+
+    <h2>5. UML DESIGN (DETAIL & LENGKAP)</h2>
+    
+    <h3>A. Use Case Diagram</h3>
+    <ul>
+        <li><strong>Aktor: Pelanggan</strong> -> Scan Barcode, Lihat Detail, Booking & Bayar DP, Chat WA, Lihat Testimoni.</li>
+        <li><strong>Aktor: Kasir</strong> -> Login POS, Scan Barcode Jual, Proses Pembayaran, Cetak Struk, Buka/Tutup Shift.</li>
+        <li><strong>Aktor: Admin/Pemilik</strong> -> Kelola Master Data, Atur Persentase DP, Lihat Laporan Keuangan, Kelola Stok, Verifikasi DP.</li>
+    </ul>
+
+    <h3>B. Entity Relationship Diagram (ERD)</h3>
+    <ul>
+        <li><strong>Users</strong> (id, name, email, password, role)</li>
+        <li><strong>Goats</strong> (id, barcode, photo_url, weight, height, age, gender, health_status, category_id, price, status)</li>
+        <li><strong>Categories</strong> (id, name, description)</li>
+        <li><strong>Bookings</strong> (id, user_id, goat_id, booking_date, dp_amount, total_price, status)</li>
+        <li><strong>Transactions</strong> (id, cashier_id, booking_id, total_amount, payment_method, transaction_date)</li>
+        <li><strong>Transaction_Details</strong> (id, transaction_id, goat_id, price)</li>
+        <li><strong>Inventory_Items</strong> (id, name, type, stock_quantity, unit, reorder_level)</li>
+        <li><strong>Inventory_Logs</strong> (id, item_id, quantity_change, type, date, note)</li>
+        <li><strong>Journal_Entries</strong> (id, date, description, debit_account, credit_account, amount, ref_transaction_id)</li>
+        <li><strong>Chart_of_Accounts</strong> (id, account_code, account_name, type)</li>
+    </ul>
+
+    <h3>C. Sequence Diagram: Proses Booking & Pembayaran DP</h3>
+    <ol>
+        <li>Pelanggan membuka PWA -> Scan Barcode Kambing.</li>
+        <li>Sistem menampilkan detail kambing (status: Available).</li>
+        <li>Pelanggan klik "Booking Sekarang".</li>
+        <li>Sistem menampilkan form booking & syarat DP (misal 30%).</li>
+        <li>Pelanggan mengisi data & klik "Bayar DP".</li>
+        <li>Sistem memanggil Payment Gateway API (Midtrans).</li>
+        <li>Payment Gateway mengirim callback ke Backend (status: Success).</li>
+        <li>Backend mengupdate status Goats menjadi "Booked".</li>
+        <li>Backend membuat record di Bookings dan Journal_Entries (Debit Kas, Kredit Pendapatan DP).</li>
+        <li>Sistem mengirim Notifikasi WhatsApp ke Pelanggan & Admin.</li>
+        <li>Sistem menampilkan halaman sukses ke Pelanggan.</li>
+    </ol>
+
+    <h3>D. Activity Diagram: Alur Kasir (POS)</h3>
+    <ol>
+        <li>Kasir Login -> Pilih Shift.</li>
+        <li>Kasir Scan Barcode Kambing -> Sistem cek stok (Jika Booked, muncul peringatan).</li>
+        <li>Item masuk ke keranjang.</li>
+        <li>Kasir klik "Bayar" -> Pilih Metode (Tunai/QRIS).</li>
+        <li>Jika Tunai: Input uang diterima -> Sistem hitung kembalian.</li>
+        <li>Sistem simpan Transactions -> Update stok Goats jadi "Sold".</li>
+        <li>Sistem cetak struk (Bluetooth).</li>
+        <li>Sistem update Journal_Entries (Debit Kas, Kredit Pendapatan Penjualan).</li>
+        <li>Kasir klik "Tutup Shift" -> Rekap uang fisik.</li>
+    </ol>
+
+    <h3>E. Class Diagram (Contoh Struktur Backend)</h3>
+    <pre>
+Class Goat {
+  - id: UUID
+  - barcode: String
+  - weight: Float
+  - healthStatus: String
+  - status: Enum(Available, Booked, Sold)
+  + scanBarcode()
+  + updateStatus()
+  + calculateHPP()
+}
+
+Class Booking {
+  - id: UUID
+  - dpAmount: Float
+  - status: Enum(Pending, Paid)
+  + createBooking()
+  + processDPPayment()
+  + cancelBooking()
+}
+
+Class Transaction {
+  - id: UUID
+  - totalAmount: Float
+  - paymentMethod: String
+  + addItem()
+  + calculateTotal()
+  + printReceipt()
+}
+
+Class Inventory {
+  - id: UUID
+  - stock: Integer
+  + reduceStock()
+  + addStock()
+  + checkReorderLevel()
+}
+
+Class Accounting {
+  - journalId: UUID
+  + recordJournalEntry()
+  + generateIncomeStatement()
+  + generateBalanceSheet()
+}
+    </pre>
+
+    <h2>6. REKOMENDASI IMPLEMENTASI & PWA</h2>
+    <ul>
+        <li><strong>Mobile PWA:</strong> Gunakan Service Worker untuk meng-cache gambar kambing dan halaman katalog. Saat koneksi internet di kandang kurang stabil, pelanggan tetap bisa melihat katalog yang sudah di-cache.</li>
+        <li><strong>Scan Barcode:</strong> Gunakan fitur getUserMedia pada browser HP. Pastikan pencahayaan kandang cukup, atau sediakan QR Code yang dicetak dan ditempel di kandang.</li>
+        <li><strong>Keamanan:</strong> Gunakan JWT (JSON Web Token) untuk otentikasi API, dan enkripsi data sensitif (password, data pelanggan) di database.</li>
+        <li><strong>Integrasi Akuntansi:</strong> Karena ini standar akuntansi, sangat disarankan untuk menggunakan double-entry bookkeeping (Debit/Kredit) di backend. Jangan hanya mencatat "Uang Masuk" dan "Uang Keluar", tapi petakan ke akun (Kas, Piutang, Pendapatan, HPP, Beban).</li>
+        <li><strong>Skalabilitas:</strong> Pisahkan service antara Customer App (PWA) dan Admin/Kasir App (bisa PWA terpisah atau dashboard web) agar beban server tidak bertumpuk.</li>
+    </ul>
+
+    <div class="footer">
+        <p>Dokumen ini merupakan blueprint teknis tingkat tinggi. Untuk implementasi, diperlukan wireframe UI/UX dan sprint planning (Agile) selama 3-4 bulan untuk versi MVP.</p>
+        <p>&copy; 2024 Enterprise Architecture Team</p>
+    </div>
+
+</body>
+</html>

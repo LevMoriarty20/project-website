@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stok Pakan | Kambing Kamil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="inventory-page">
+    <div class="page-shell inventory-shell">
+      <aside class="sidebar inventory-sidebar">
+        <div class="sidebar-header">
+          <div class="brand admin-brand">
+            <span class="brand-mark">K</span>
+            <span>Kambing Kamil</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Navigasi inventory">
+          <a href="admin.html">Dashboard</a>
+          <a href="kasir.html">Kasir</a>
+          <a class="active" href="#">Stok Pakan</a>
+          <a href="laporan.html">Laporan</a>
+        </nav>
+      </aside>
+
+      <main class="admin-main inventory-main">
+        <header class="admin-topbar">
+          <div>
+            <span class="eyebrow">Inventory</span>
+            <h1>Manajemen stok pakan</h1>
+            <p class="admin-subtitle">Data contoh stok tersimpan di browser perangkat ini.</p>
+          </div>
+          <button class="btn btn-primary" type="button" id="openStockModal">+ Tambah stok</button>
+        </header>
+
+        <section class="inventory-grid">
+          <div class="panel inventory-panel wide-panel reveal">
+            <div class="panel-head">
+              <h2>Daftar bahan pakan</h2>
+              <button class="btn btn-secondary small" type="button" id="stockFilter" aria-pressed="false">Stok menipis</button>
+            </div>
+
+            <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nama bahan</th>
+                  <th>Jenis</th>
+                  <th>Stok</th>
+                  <th>Level aman</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="feedStockTable">
+                <tr>
+                  <td>Rumput gajah</td>
+                  <td>Hijauan</td>
+                  <td>420 kg</td>
+                  <td>300 kg</td>
+                  <td><span class="status-badge available">Aman</span></td>
+                </tr>
+                <tr>
+                  <td>Konsentrat</td>
+                  <td>Pakan campur</td>
+                  <td>180 kg</td>
+                  <td>200 kg</td>
+                  <td><span class="status-badge pending">Perlu restock</span></td>
+                </tr>
+                <tr>
+                  <td>Vitamin</td>
+                  <td>Suplemen</td>
+                  <td>42 botol</td>
+                  <td>35 botol</td>
+                  <td><span class="status-badge available">Aman</span></td>
+                </tr>
+                <tr>
+                  <td>Obat cacing</td>
+                  <td>Obat</td>
+                  <td>18 paket</td>
+                  <td>20 paket</td>
+                  <td><span class="status-badge pending">Hampir habis</span></td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <p class="empty-state" id="stockEmptyState" hidden>Tidak ada bahan yang perlu direstok.</p>
+          </div>
+
+          <div class="panel inventory-panel side-panel reveal">
+            <div class="panel-head">
+              <h2>Ringkasan</h2>
+            </div>
+
+            <div class="mini-metric reveal">
+              <span>Jenis bahan dipantau</span>
+              <strong id="stockItemCount">4 jenis</strong>
+            </div>
+            <div class="mini-metric reveal">
+              <span>Perlu restock</span>
+              <strong id="stockLowCount">2 item</strong>
+            </div>
+            <div class="mini-metric reveal">
+              <span>Pengeluaran</span>
+              <strong>Belum dicatat</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="bottom-grid inventory-bottom">
+          <div class="panel reveal">
+            <div class="panel-head">
+              <div>
+                <h2>Log stok</h2>
+                <p class="panel-subtitle">Perubahan stok yang dicatat dari halaman ini.</p>
+              </div>
+            </div>
+
+            <ul class="activity-list" id="stockActivityList"></ul>
+          </div>
+
+          <div class="panel reveal">
+            <div class="panel-head">
+              <h2>Notifikasi</h2>
+            </div>
+
+            <div class="notice-box">
+              <strong id="stockNoticeTitle">⚠️ Periksa stok bahan pakan</strong>
+              <p id="stockNoticeMessage">Periksa status bahan untuk mengetahui kebutuhan restock.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <dialog class="stock-dialog" id="stockDialog" aria-labelledby="stockDialogTitle">
+      <form id="stockForm" class="goat-form">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">Inventory</span>
+            <h2 id="stockDialogTitle">Tambah stok bahan</h2>
+          </div>
+          <button class="modal-close stock-modal-close" type="button" id="closeStockModal" aria-label="Tutup dialog">×</button>
+        </div>
+        <label>
+          Bahan pakan
+          <select name="item" id="stockItem" required></select>
+        </label>
+        <label>
+          Jumlah yang ditambahkan
+          <input type="number" name="quantity" min="0.1" step="0.1" placeholder="Contoh: 25" required />
+        </label>
+        <div class="submit-row">
+          <button type="submit" class="btn btn-primary">Simpan stok</button>
+          <button type="button" class="btn btn-secondary" id="cancelStockModal">Batal</button>
+        </div>
+      </form>
+    </dialog>
+    <script src="script.js"></script>
+  </body>
+</html>

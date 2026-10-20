@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Kambing Kamil membantu menampilkan katalog kambing, mencatat booking, dan memantau operasional peternakan."
+    />
+    <title>Kambing Kamil | Peternakan & Kurban Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="public-site">
+    <header class="site-header">
+      <div class="container nav">
+        <div class="brand">
+          <span class="brand-mark">K</span>
+          <span>Kambing Kamil</span>
+        </div>
+        <nav class="nav-menu" aria-label="Main menu">
+          <a href="#katalog">Pilihan kambing</a>
+          <a href="#cara-pesan">Cara pesan</a>
+          <a href="#booking">Booking</a>
+        </nav>
+        <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+        <a href="login.html" class="btn btn-primary nav-cta">Masuk admin</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Kambing Kamil · Peternakan & kurban</span>
+            <h1>Pilih kambing yang tepat. Kami bantu urus pesanannya.</h1>
+            <p>
+              Lihat pilihan kambing, cek harga dan ketersediaannya, lalu ajukan booking langsung dari sini.
+            </p>
+            <div class="hero-actions">
+              <a href="#katalog" class="btn btn-primary">Lihat pilihan kambing</a>
+              <a href="#cara-pesan" class="btn btn-secondary">Cara pemesanan</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg"
+              alt="Kambing berdiri di area terbuka"
+              fetchpriority="high"
+            />
+            <div class="hero-photo-caption">
+              <span>Pilihan kambing untuk kurban & aqiqah</span>
+              <span>01 / Katalog</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="cara-pesan" class="section process-section">
+        <div class="container">
+          <div class="process-intro">
+            <span class="eyebrow">Mudah dan jelas</span>
+            <h2>Dari memilih sampai booking, tanpa langkah yang membingungkan.</h2>
+          </div>
+          <div class="process-list">
+            <article class="process-item">
+              <span>01</span>
+              <div>
+                <h3>Pilih kambing</h3>
+                <p>Lihat bobot, harga, dan status ketersediaan di katalog.</p>
+              </div>
+            </article>
+            <article class="process-item">
+              <span>02</span>
+              <div>
+                <h3>Isi permintaan booking</h3>
+                <p>Tentukan pilihan kambing dan tanggal yang diinginkan.</p>
+              </div>
+            </article>
+            <article class="process-item">
+              <span>03</span>
+              <div>
+                <h3>Tunggu konfirmasi</h3>
+                <p>Permintaan tersimpan untuk ditinjau oleh admin peternakan.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="katalog" class="section alt-bg">
+        <div class="container">
+          <div class="section-heading inline-heading">
+            <div>
+              <span class="eyebrow">Lihat sebelum memilih</span>
+              <h2>Pilihan kambing</h2>
+              <p class="catalog-note">Harga dan ketersediaan ditampilkan pada setiap pilihan.</p>
+            </div>
+            <a href="#booking" class="btn btn-secondary">Tanya atau booking</a>
+          </div>
+
+          <div class="product-grid">
+            <article class="product-card reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg" alt="Kambing Super" />
+              <div class="product-body">
+                <div class="product-meta">
+                  <span class="tag tag-green">Premium</span>
+                </div>
+                <h3>Kambing Super A</h3>
+                <p>Bobot 38 kg, sehat, siap kurban, kualitas daging tebal dan lembut.</p>
+                <div class="product-footer">
+                  <strong>Rp 8.900.000</strong>
+                  <div class="product-actions">
+                    <button class="btn-detail" data-goat="Kambing Super A" data-price="Rp 8.900.000" data-desc="Bobot 38 kg, sehat, siap kurban, kualitas daging tebal dan lembut.">Detail</button>
+                    <button class="btn-order" data-goat="Kambing Super A">Pesan</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Goat_of_Margarita.jpg/960px-Goat_of_Margarita.jpg" alt="Kambing Betina" />
+              <div class="product-body">
+                <div class="product-meta">
+                  <span class="tag tag-gold">Betina</span>
+                </div>
+                <h3>Kambing Betina B</h3>
+                <p>Ukuran proporsional, kondisi prima, cocok untuk kebutuhan keluarga dan acara aqiqah.</p>
+                <div class="product-footer">
+                  <strong>Rp 7.400.000</strong>
+                  <div class="product-actions">
+                    <button class="btn-detail" data-goat="Kambing Betina B" data-price="Rp 7.400.000" data-desc="Ukuran proporsional, kondisi prima, cocok untuk kebutuhan keluarga dan acara aqiqah.">Detail</button>
+                    <button class="btn-order" data-goat="Kambing Betina B">Pesan</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg" alt="Kambing Standard" />
+              <div class="product-body">
+                <div class="product-meta">
+                  <span class="tag tag-blue">Standar</span>
+                </div>
+                <h3>Kambing Standar C</h3>
+                <p>Harga terjangkau dengan kualitas sehat, ideal untuk kebutuhan kurban massal.</p>
+                <div class="product-footer">
+                  <strong>Rp 6.100.000</strong>
+                  <div class="product-actions">
+                    <button class="btn-detail" data-goat="Kambing Standar C" data-price="Rp 6.100.000" data-desc="Harga terjangkau dengan kualitas sehat, ideal untuk kebutuhan kurban massal.">Detail</button>
+                    <button class="btn-order" data-goat="Kambing Standar C">Pesan</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Goat_of_Margarita.jpg/960px-Goat_of_Margarita.jpg" alt="Kambing Premium D" />
+              <div class="product-body">
+                <div class="product-meta">
+                  <span class="tag tag-green">Premium</span>
+                </div>
+                <h3>Kambing Premium D</h3>
+                <p>Bobot 41 kg, kondisi prima, dan siap untuk kebutuhan kurban.</p>
+                <div class="product-footer">
+                  <strong>Rp 9.500.000</strong>
+                  <div class="product-actions">
+                    <button class="btn-detail" data-goat="Kambing Premium D" data-price="Rp 9.500.000" data-desc="Bobot 41 kg, kondisi prima, dan siap untuk kebutuhan kurban.">Detail</button>
+                    <button class="btn-order" data-goat="Kambing Premium D">Pesan</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg" alt="Kambing Ekonomis E" />
+              <div class="product-body">
+                <div class="product-meta">
+                  <span class="tag tag-blue">Ekonomis</span>
+                </div>
+                <h3>Kambing Ekonomis E</h3>
+                <p>Bobot 33 kg dengan harga bersahabat untuk pilihan kurban keluarga.</p>
+                <div class="product-footer">
+                  <strong>Rp 7.900.000</strong>
+                  <div class="product-actions">
+                    <button class="btn-detail" data-goat="Kambing Ekonomis E" data-price="Rp 7.900.000" data-desc="Bobot 33 kg dengan harga bersahabat untuk pilihan kurban keluarga.">Detail</button>
+                    <button class="btn-order" data-goat="Kambing Ekonomis E">Pesan</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <p class="catalog-empty" id="catalogEmptyState" hidden>Saat ini belum ada kambing yang tersedia untuk booking. Silakan cek kembali nanti.</p>
+        </div>
+      </section>
+
+      <section id="booking" class="section booking-section">
+        <div class="container booking-grid">
+          <form class="booking-form" id="bookingForm">
+            <span class="eyebrow">Langkah berikutnya</span>
+            <h2>Ajukan booking</h2>
+            <p class="booking-intro">Isi detail berikut. Admin akan meninjau permintaan dan mengonfirmasi ketersediaan.</p>
+            <label>
+              Nama lengkap
+              <input type="text" name="name" placeholder="Masukkan nama" required />
+            </label>
+            <label>
+              Nomor WhatsApp
+              <input type="tel" name="phone" placeholder="Contoh: 081234567890" autocomplete="tel" />
+            </label>
+            <label>
+              Pilih kambing
+              <select name="goat" required>
+                <option value="">-- Pilih kambing --</option>
+                <option value="Kambing Super A">Kambing Super A</option>
+                <option value="Kambing Betina B">Kambing Betina B</option>
+                <option value="Kambing Standar C">Kambing Standar C</option>
+              </select>
+            </label>
+            <label>
+              Tanggal pengiriman
+              <input type="date" name="date" required />
+            </label>
+            <label>
+              Rencana pembayaran
+              <select name="method" required>
+                <option value="DP">DP</option>
+                <option value="Lunas">Lunas</option>
+              </select>
+            </label>
+            <button type="submit" class="btn btn-primary full">Ajukan booking</button>
+            <p class="form-note">Demo ini menyimpan booking di browser yang sedang digunakan.</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="operations-note">
+        <div class="container">
+          <div>
+            <span class="eyebrow">Untuk pengelola</span>
+            <h2>Kelola katalog dan booking di satu tempat.</h2>
+            <p>Admin dapat memeriksa permintaan, memperbarui status kambing, dan melihat transaksi yang dicatat pada perangkat ini.</p>
+          </div>
+          <div class="operations-actions">
+            <a href="login.html" class="btn btn-primary">Masuk admin</a>
+            <span>Data demo tersimpan di browser ini, belum tersinkron antarperangkat.</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div>
+          <div class="brand footer-brand">
+            <span class="brand-mark">K</span>
+            <span>Kambing Kamil</span>
+          </div>
+          <p>Katalog kambing dan pencatatan booking untuk Kambing Kamil.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#katalog">Pilihan kambing</a>
+          <a href="#booking">Booking</a>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal hidden" id="productModal" aria-hidden="true">
+      <div class="modal-backdrop" data-close="true"></div>
+      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" aria-label="Tutup modal">×</button>
+        <div class="modal-content">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Capra_aegagrus_hircus_in_isla_Margarita.jpg/960px-Capra_aegagrus_hircus_in_isla_Margarita.jpg" alt="Detail kambing" id="modalImage" />
+          <div class="modal-body">
+            <span class="eyebrow">Kambing unggulan</span>
+            <h3 id="modalTitle">Kambing Super A</h3>
+            <p class="modal-price" id="modalPrice">Rp 8.900.000</p>
+            <p id="modalDesc">Bobot 38 kg, sehat, siap kurban, kualitas daging tebal dan lembut.</p>
+            <button class="btn btn-primary modal-order" type="button">Pilih kambing ini</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
