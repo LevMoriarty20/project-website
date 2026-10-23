@@ -2,6 +2,8 @@
 
 Proyek UTS Pemrograman Website: prototipe website peternakan kambing untuk menampilkan katalog dan mencatat proses booking serta operasional sederhana.
 
+**Repository GitHub:** [LevMoriarty20/project-website](https://github.com/LevMoriarty20/project-website)
+
 ## Fitur
 
 - Katalog kambing, detail produk, dan formulir booking.
