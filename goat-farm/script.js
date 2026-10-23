@@ -503,6 +503,19 @@ const renderAdminDashboard = () => {
       const priceCell = document.createElement('td');
       priceCell.textContent = compactCurrency(Number(goat.price) || 0);
       row.append(priceCell);
+      const actionCell = document.createElement('td');
+      const editLink = document.createElement('a');
+      editLink.className = 'btn btn-secondary small';
+      editLink.href = `tambah-kambing.html?kode=${encodeURIComponent(goat.code)}`;
+      editLink.textContent = 'Edit';
+      const deleteButton = document.createElement('button');
+      deleteButton.className = 'btn btn-secondary small';
+      deleteButton.type = 'button';
+      deleteButton.dataset.deleteGoat = goat.code;
+      deleteButton.textContent = 'Hapus';
+      deleteButton.setAttribute('aria-label', `Hapus ${goat.name}`);
+      actionCell.append(editLink, deleteButton);
+      row.append(actionCell);
       tableBody.append(row);
     });
     const emptyState = document.getElementById('goatEmptyState');
@@ -702,30 +715,85 @@ window.addEventListener('storage', (event) => {
 
 const goatForm = document.getElementById('goatForm');
 if (goatForm) {
+  const params = new URLSearchParams(window.location.search);
+  const editingCode = params.get('kode');
+  const goats = getGoats();
+  const existingGoat = editingCode ? goats.find((item) => item.code === editingCode) : null;
+  const submitButton = document.getElementById('goatSubmitButton');
+  const nameInput = goatForm.elements.namedItem('nama');
+  const statusInput = goatForm.elements.namedItem('status');
+  const editNote = document.getElementById('goatEditNote');
+
+  if (editingCode && !existingGoat) {
+    showToast('Data kambing yang akan diedit tidak ditemukan.', 'error');
+    if (submitButton) submitButton.disabled = true;
+  } else if (existingGoat) {
+    const hasBooking = getBookings().some((booking) => booking.goat === existingGoat.name);
+    const hasSale = getTransactions().some((transaction) =>
+      (transaction.items || []).some((item) => item.name === existingGoat.name)
+    );
+    const hasHistory = hasBooking || hasSale;
+
+    goatForm.elements.namedItem('kode').value = existingGoat.code;
+    nameInput.value = existingGoat.name;
+    goatForm.elements.namedItem('jenis').value = existingGoat.type;
+    goatForm.elements.namedItem('berat').value = existingGoat.weight;
+    goatForm.elements.namedItem('usia').value = existingGoat.age;
+    goatForm.elements.namedItem('kelamin').value = existingGoat.gender;
+    goatForm.elements.namedItem('harga').value = existingGoat.price;
+    statusInput.value = existingGoat.status;
+    goatForm.elements.namedItem('catatan').value = existingGoat.notes || '';
+    document.getElementById('goatFormTitle').textContent = 'Edit data kambing';
+    submitButton.textContent = 'Simpan perubahan';
+    nameInput.readOnly = true;
+    editNote.hidden = false;
+    editNote.textContent = 'Nama kambing tidak dapat diubah agar tetap sesuai dengan katalog.';
+
+    if (hasHistory) {
+      statusInput.disabled = true;
+      statusInput.title = 'Status ditentukan oleh riwayat booking atau transaksi.';
+      editNote.textContent += ' Status juga dikunci karena kambing ini memiliki riwayat booking atau transaksi.';
+    }
+  }
+
   goatForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const formData = new FormData(goatForm);
     const goat = {
       code: String(formData.get('kode') || '').trim().toUpperCase(),
-      name: String(formData.get('nama') || '').trim(),
+      name: String(nameInput.value || '').trim(),
       type: String(formData.get('jenis') || ''),
       weight: Number(formData.get('berat')),
       age: Number(formData.get('usia')),
       gender: String(formData.get('kelamin') || ''),
       price: Number(formData.get('harga')),
-      status: String(formData.get('status') || 'Tersedia'),
+      status: existingGoat && statusInput.disabled
+        ? existingGoat.status
+        : String(formData.get('status') || 'Tersedia'),
       notes: String(formData.get('catatan') || '').trim(),
-      createdAt: new Date().toISOString()
+      createdAt: existingGoat?.createdAt || new Date().toISOString()
     };
     try {
-      const goats = getGoats();
-      if (goats.some((item) => item.code.toLowerCase() === goat.code.toLowerCase() || item.name.toLowerCase() === goat.name.toLowerCase())) {
+      const currentGoats = getGoats();
+      if (currentGoats.some((item) =>
+        item.code !== editingCode &&
+        (item.code.toLowerCase() === goat.code.toLowerCase() || item.name.toLowerCase() === goat.name.toLowerCase())
+      )) {
         showToast('Kode atau nama kambing sudah digunakan. Gunakan identitas yang unik.', 'error');
         return;
       }
-      goats.unshift(goat);
-      writeStore(storageKeys.goats, goats);
-      showToast(`${goat.name} berhasil disimpan.`);
+      if (editingCode) {
+        const index = currentGoats.findIndex((item) => item.code === editingCode);
+        if (index < 0) {
+          showToast('Data kambing tidak lagi tersedia. Muat ulang halaman lalu coba lagi.', 'error');
+          return;
+        }
+        currentGoats[index] = goat;
+      } else {
+        currentGoats.unshift(goat);
+      }
+      writeStore(storageKeys.goats, currentGoats);
+      showToast(editingCode ? `${goat.name} berhasil diperbarui.` : `${goat.name} berhasil disimpan.`);
       goatForm.reset();
       setTimeout(() => { window.location.href = 'admin.html'; }, 700);
     } catch (error) {
@@ -733,6 +801,37 @@ if (goatForm) {
     }
   });
 }
+
+document.getElementById('goatTableBody')?.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-delete-goat]');
+  if (!button) return;
+
+  const code = button.dataset.deleteGoat;
+  const goat = getGoats().find((item) => item.code === code);
+  if (!goat) {
+    showToast('Data kambing tidak ditemukan.', 'error');
+    return;
+  }
+  if (!window.confirm(`Hapus ${goat.name} (${goat.code})?`)) return;
+
+  const hasBooking = getBookings().some((booking) => booking.goat === goat.name);
+  const hasSale = getTransactions().some((transaction) =>
+    (transaction.items || []).some((item) => item.name === goat.name)
+  );
+  if (hasBooking || hasSale) {
+    showToast('Kambing tidak dapat dihapus karena memiliki riwayat booking atau transaksi.', 'error');
+    return;
+  }
+
+  try {
+    writeStore(storageKeys.goats, getGoats().filter((item) => item.code !== code));
+    renderAdminDashboard();
+    renderPublicOverview();
+    showToast(`${goat.name} berhasil dihapus.`);
+  } catch (error) {
+    showToast(error.message, 'error');
+  }
+});
 
 document.querySelector('[data-export-goats]')?.addEventListener('click', () => {
   const goats = getGoats();

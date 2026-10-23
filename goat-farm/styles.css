@@ -2276,6 +2276,10 @@ table {
   min-width: 560px;
 }
 
+.admin-page .table-panel table {
+  min-width: 680px;
+}
+
 th {
   font-size: 0.74rem;
 }

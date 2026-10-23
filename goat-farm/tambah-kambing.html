@@ -31,13 +31,14 @@
         <header class="admin-topbar">
           <div>
             <span class="eyebrow">Master data</span>
-            <h1>Tambah kambing baru</h1>
+            <h1 id="goatFormTitle">Tambah kambing baru</h1>
           </div>
           <a href="admin.html" class="btn btn-secondary">Kembali</a>
         </header>
 
         <section class="panel form-panel reveal">
           <form id="goatForm" class="goat-form">
+            <p class="form-note" id="goatEditNote" hidden></p>
             <div class="form-grid">
               <label>
                 Kode kambing
@@ -81,7 +82,7 @@
 
               <label>
                 Harga jual
-                <input type="number" name="harga" min="1" step="1000" placeholder="8900000" required />
+                <input type="number" name="harga" min="1000" step="1000" placeholder="8900000" required />
               </label>
 
               <label>
@@ -101,7 +102,7 @@
             </label>
 
             <div class="submit-row">
-              <button type="submit" class="btn btn-primary">Simpan data</button>
+              <button type="submit" class="btn btn-primary" id="goatSubmitButton">Simpan data</button>
               <button type="reset" class="btn btn-secondary">Reset</button>
             </div>
           </form>
