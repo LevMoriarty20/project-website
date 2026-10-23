@@ -44,9 +44,57 @@ goat-farm/
 └── script.js
 ```
 
-## Screenshot dan deployment
+## Screenshot aplikasi
 
-Screenshot dan tautan deployment belum disertakan. Tambahkan screenshot halaman katalog, dashboard, dan kasir ke repository, lalu isi tautan deployment di bagian ini setelah aplikasi dipublikasikan.
+Screenshot berikut diambil dari tampilan aktual aplikasi.
+
+### Halaman utama
+
+![Landing page Kambing Kamil](goat-farm/screenshots/landing-page.png)
+
+### Alur pemesanan dan katalog
+
+**Cara pesan**
+
+![Langkah pemesanan kambing](goat-farm/screenshots/cara-pesan.png)
+
+**Katalog kambing**
+
+![Katalog pilihan kambing](goat-farm/screenshots/katalog-kambing.png)
+
+**Form booking**
+
+![Form pengajuan booking](goat-farm/screenshots/form-booking.png)
+
+### Halaman admin dan operasional
+
+**Login admin**
+
+![Halaman login admin](goat-farm/screenshots/login-admin.png)
+
+**Dashboard admin**
+
+![Dashboard inventaris dan booking](goat-farm/screenshots/dashboard-admin.png)
+
+**Form kambing**
+
+![Form tambah kambing](goat-farm/screenshots/tambah-kambing.png)
+
+**Kasir**
+
+![Halaman transaksi kasir](goat-farm/screenshots/kasir.png)
+
+**Stok pakan**
+
+![Manajemen stok pakan](goat-farm/screenshots/stok-pakan.png)
+
+**Laporan keuangan**
+
+![Laporan keuangan](goat-farm/screenshots/laporan-keuangan.png)
+
+## Deployment
+
+Tautan deployment belum tersedia. Tambahkan URL di bagian ini setelah aplikasi dipublikasikan.
 
 ## Catatan pengembangan
 
